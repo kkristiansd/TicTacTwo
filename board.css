@@ -1,0 +1,114 @@
+.grid-container {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    background-color: #9ba0a5bb;
+    color: #fff;
+    border-radius: 10px;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.a1 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.a2 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.a3 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.b1 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.b2 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.b3 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.c1 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.c2 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.c3 {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img{
+  height: 160px; 
+  width: 160px; 
+}
