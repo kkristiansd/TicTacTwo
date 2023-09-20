@@ -6,7 +6,7 @@ class Board {
       this.boardElement.id = "board";
       this.board.forEach((square, index) => {
         const squareElement = document.createElement("button");
-        squareElement.addEventListener("click", ()=> this.handleSquareClick(index))
+        squareElement.addEventListener("click", () => this.handleSquareClick(index))
         this.boardElement.append(squareElement);
       });
 
@@ -15,36 +15,38 @@ class Board {
   }
 
   handleSquareClick(index) {
-   
+
     if (this.board[index] === null) {
-        this.board[index] = "X";
-        this.boardElement.children[index].textContent = "X";
-        this.currentPlayer = "O";
-       
-       
-      } else if (this.currentPlayer === "O") {
-        console.log("pass")
+      if (this.currentPlayer === "O") {
         this.board[index] = "O";
         this.boardElement.children[index].textContent = "O";
         this.currentPlayer = "X";
+      } else {
+        this.board[index] = "X";
+        this.boardElement.children[index].textContent = "X";
+        this.currentPlayer = "O";
       }
     }
 
 
-    isWon(index) {
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [6, 4, 2];
+
+    // isWon(index) {
+    //   [0, 1, 2],
+    //     [3, 4, 5],
+    //     [6, 7, 8],
+    //     [0, 3, 6],
+    //     [1, 4, 7],
+    //     [2, 5, 8],
+    //     [0, 4, 8],
+    //     [6, 4, 2];
+
+    // }
+
   }
 
-  } 
+}
 
-  
+
 
 
 const gameBoard = new Board();
