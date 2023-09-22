@@ -8,31 +8,40 @@ class Board {
         const squareElement = document.createElement("button");
         squareElement.addEventListener("click", () => this.handleSquareClick(index))
         this.boardElement.append(squareElement);
+        this.isWon = this.isWon.bind(this);
+
       });
 
       document.body.replaceChildren(this.boardElement);
+
     });
   }
 
   handleSquareClick(index) {
 
     if (this.board[index] === null) {
-      if (this.currentPlayer === "O") {
-        this.board[index] = "O";
 
-
-
-        this.boardElement.children[index].textContent = "O";
-        this.currentPlayer = "X";
+      if (this.currentPlayer === "X") {
+        this.board[index] = "X";
+        this.boardElement.children[index].textContent = "X";
+        
+        this.currentPlayer = "O";
 
         var isWon = this.isWon;
         isWon(board, index);
+        this.gameWon(index);
 
       } else {
-        this.board[index] = "X";
-        this.boardElement.children[index].textContent = "X";
+        this.board[index] = "O";
+        this.boardElement.children[index].textContent = "O";
+        
+        this.currentPlayer = "X";
+        
+        var isWon = this.isWon;
+        isWon(board, index);
+        this.gameWon(index);
 
-        this.currentPlayer = "O";
+
       }
     }
   }
@@ -40,8 +49,7 @@ class Board {
   //declaring winner needs to be fixed
 
   isWon(board, index) {
-
-    var winComb = [
+    const winComb = [
       [0, 1, 2],
       [3, 4, 5],
       [6, 7, 8],
@@ -52,20 +60,46 @@ class Board {
       [6, 4, 2]
     ];
 
-    const arrX = { board, ...index };
-    const arrO = { board, ...index };
+    const arrX = [...this.board];
+    const arrO = [...this.board];
 
-    for (const comb of winComb) {
-      console.log("hellyeah")
-      const [a, b, c] = comb;
-      console.log("hell")
-      if (arrX[a] === 'X' && arrX[b] === 'X' && arrX[c] === 'X') {
-        console.log("x won")
-        return true;
-      }
+    if (index.player === 'X') {
+      arrX[index.index] = 'X';
+    } else if (index.player === 'O') {
+      arrO[index.index] = 'O';
     }
 
+    for (const comb of winComb) {
+      const [a, b, c] = comb;
+
+      if (arrX[a] === 'X' && arrX[b] === 'X' && arrX[c] === 'X') {
+        console.log("x won");
+        return true;
+
+      } 
+      
+
+      if (arrO[a] === 'O' && arrO[b] === 'O' && arrO[c] === 'O') {
+        console.log("o won");
+        return true;
+      }
+      
+    }
+
+    return false;
+
   }
+
+  gameWon(){
+    let winMsg = (this.currentPlayer + " WON THE GAME!");
+    if(this.isWon(this.board,this.currentPlayer)){
+      console.log(winMsg);
+      return winMsg;
+       
+    }
+  }
+
+
 
 }
 
