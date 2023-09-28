@@ -29,21 +29,24 @@ class Board {
         var isWon = this.isWon;
         isWon(board, index);
         this.gameWon(index);
+
       } else {
         this.currentPlayer === "O";
         this.board[index] = "O";
         this.boardElement.children[index].textContent = "O";
 
+        this.currentPlayer = "X";
+
         var isWon = this.isWon;
         isWon(board, index);
         this.gameWon(index);
 
-        this.currentPlayer = "X";
+
       }
     }
   }
 
-  isWon(board, index) {
+  isWon(index) {
     const winComb = [
       [0, 1, 2],
       [3, 4, 5],
@@ -83,16 +86,45 @@ class Board {
   gameWon() {
     let winMsg = this.currentPlayer + " WON THE GAME!";
     if (this.isWon(this.board, this.currentPlayer)) {
-      if(this.isWon){
+      if (this.isWon) {
         this.handleSquareClick = null;
       }
-      
-      //show winMSG and below it put retart and quit buttons
-      console.log(winMsg);
-      return winMsg;
 
+      const overlayContainer = document.createElement('div');
+      overlayContainer.classList.add('overlay-container');
+
+      const winMessageDiv = document.createElement('div');
+      winMessageDiv.textContent = winMsg;
+      winMessageDiv.classList.add('win-message');
+
+      const restartButton = document.createElement('button');
+      restartButton.textContent = 'Restart Game';
+      restartButton.classList.add('restart-button');
+
+      restartButton.addEventListener('click', () => {
+        window.location.reload();
+
+        document.body.removeChild(overlayContainer);
+
+      });
+
+
+      overlayContainer.appendChild(winMessageDiv);
+      overlayContainer.appendChild(restartButton);
+
+
+      document.body.appendChild(overlayContainer);
+
+
+      console.log(winMsg);
+
+      return winMsg;
     }
   }
+
+
+
+
 }
 
 const gameBoard = new Board();
