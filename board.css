@@ -2,15 +2,17 @@
   width: 600px;
   height: 600px;
   margin: 0 auto;
-  background-color: #9ba0a5bb;
-  color: #fff;
+ 
+  color: #73686A;
   border-radius: 10px;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  padding-top: 7%;
 }
 
 button {
-  border: 6px solid #2c3e50;
+  border: 6px solid #73686A;
+  background-color: #CFC6C8;
   border-radius: 2px;
   font-family: Helvetica;
   font-weight: bold;
@@ -34,6 +36,7 @@ img {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 9999;
@@ -41,7 +44,7 @@ img {
 
 
 button.restart-button {
-  background-color: #007bff;
+  background-color: #73686A;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -55,4 +58,62 @@ div.win-message {
   font-size: 24px;
   margin-bottom: 20px;
 
+}
+div.draw-message {
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 20px;
+
+}
+.message-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+body  {
+  background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
+background-size:cover;
+      -webkit-animation: slidein 100s;
+      animation: slidein 100s;
+
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;              
+}
+
+@-webkit-keyframes slidein {
+from {background-position: top; background-size:3000px; }
+to {background-position: -100px 0px;background-size:2750px;}
+}
+
+@keyframes slidein {
+from {background-position: top;background-size:3000px; }
+to {background-position: -100px 0px;background-size:2750px;}
+
+}
+
+.center
+{
+display: flex;
+align-items: center;
+justify-content: center;
+position: absolute;
+margin: auto;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background: rgba(75, 75, 250, 0.3);
+border-radius: 3px;
+}
+.center h1{
+text-align:center;
+color:white;
+font-family: 'Source Code Pro', monospace;
+text-transform:uppercase;
 }
