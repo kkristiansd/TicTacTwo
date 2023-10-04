@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional</title>
+</head>
+
+<body>
+<ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        
+    </ul>
+    <h1>↓↓↓↓↓↓ START ↓↓↓↓↓↓</h1>
+    <div id="board">
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+    </div>
+    <h1 id="whoMoves">X STARTS</h1>
+    <button id="style-btn" onclick="window.location.reload()">RESET</button>
+
+
+    
+
+
+    <script>
+        const board = [null, null, null, null, null, null, null, null, null];
+        let currentPlayer = "X";
+
+        function render() {
+            const buttons = document.querySelectorAll('#board button');
+            const board = Array.from(buttons).map(button => button.textContent);
+
+            console.log(board);
+        }
+
+
+        function getMove() {
+            let element = document.getElementById("whoMoves");
+
+            if (element.textContent === "X NEXT" || element.textContent === "X STARTS") {
+                element.textContent = "O NEXT";
+            } else {
+                element.textContent = "X NEXT";
+            }
+        }
+
+        function isWin(board, player) {
+            const lines = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+
+            for (const line of lines) {
+                const [a, b, c] = line;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function isDraw(board) {
+            return board.every(cell => cell !== null);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('#board button');
+
+    let gameWon = false; 
+
+    buttons.forEach((button, index) => {
+        button.addEventListener('click', function () {
+            if (!gameWon && button.textContent === "") {
+                button.textContent = currentPlayer;
+                board[index] = currentPlayer;
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                render();
+
+                if (isWin(board, currentPlayer)) {
+                    alert((currentPlayer === "X" ? "O" : "X") + " wins!");
+                    gameWon = true; 
+                } else if (isDraw(board)) {
+                    alert("It's a draw!");
+                    gameWon = true; 
+                }
+
+                getMove();
+            }
+        });
+    });
+});
+
+
+
+
+
+
+        const root = document.querySelector('html')
+
+        
+        const cursor = document.createElement('div')
+        cursor.classList.add('cursor')
+        root.appendChild(cursor)
+
+
+        const follower = document.createElement('div')
+        follower.classList.add('cursor', 'cursor__follower')
+        root.appendChild(follower)
+
+
+        root.addEventListener('mousemove', (e) => {
+            setPosition(follower, e)
+            setPosition(cursor, e)
+        })
+
+        function setPosition(element, e) {
+            element.style.transform = `translate3d(${e.clientX + 80}px, ${e.clientY + 75}px, 0)`
+        }
+    </script>
+
+
+    <style>
+        html {
+            zoom: 90%;
+            font-family: "Courier New", Courier, monospace;
+            cursor: none;
+        }
+
+
+
+        button {
+            width: 10rem;
+            height: 10rem;
+            font-size: 150px;
+            font-weight: bolder;
+            font-family: "Courier New", Courier, monospace;
+            z-index: 98;
+            color: blueviolet;
+            cursor: none;
+
+        }
+
+        #style-btn{
+            border: 4px solid aqua;
+            background-color: white;
+            color: blue;
+            width: 10rem;
+            height: 5rem;
+            font-size: 30px;
+            z-index: 100;
+            cursor: none;
+        }
+
+
+
+        .cursor {
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: #f44336;
+            position: absolute;
+            border-radius: 5px;
+            z-index: 99;
+        }
+
+        .cursor__follower {
+            transition: transform .4s;
+            width: 10px;
+            height: 10px;
+            z-index: 99;
+        }
+
+        #board {
+            display: inline-grid;
+            grid-template-columns: auto auto auto;
+            z-index: 100;
+
+        }
+
+
+
+        .title {
+            margin-top: 5rem;
+        }
+
+        body {
+            background: #4e54c8;
+            background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: aqua;
+
+        }
+
+        .circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; 
+}
+
+.circles li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    z-index: 0;
+}
+
+
+        .circles li:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+            z-index: 0;
+        }
+
+
+        .circles li:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+            z-index: 0;
+        }
+
+        .circles li:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+            z-index: 0;
+        }
+
+
+
+        @keyframes animate {
+
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+
+        }
+    </style>
+</body>
+
+</html>

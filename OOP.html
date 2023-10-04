@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OOP</title>
+  <style>
+    #board {
+      width: 600px;
+      height: 600px;
+      margin: 0 auto;
+      z-index: 99;
+      color: #73686A;
+      border-radius: 10px;
+      display: grid;
+      grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+      padding-top: 7%;
+    }
+  
+    button {
+      border: 6px solid #73686A;
+      background-color: #CFC6C8;
+      border-radius: 2px;
+      font-family: Helvetica;
+      font-weight: bold;
+      font-size: 4em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+    }
+  
+    img {
+      height: 160px;
+      width: 160px;
+    }
+  
+    .overlay-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+    }
+  
+  
+    button.restart-button {
+      background-color: #73686A;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+  
+    div.win-message {
+      color: #fff;
+      font-size: 24px;
+      margin-bottom: 20px;
+  
+    }
+  
+    div.draw-message {
+      color: #fff;
+      font-size: 24px;
+      margin-bottom: 20px;
+  
+    }
+  
+    .message-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    body {
+      background-image: url('https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg');
+      background-size: cover;
+      -webkit-animation: slidein 100s;
+      animation: slidein 100s;
+      
+  
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+  
+      -webkit-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+  
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
+    }
+  
+    @-webkit-keyframes slidein {
+      from {
+        background-position: top;
+        background-size: 3000px;
+      }
+  
+      to {
+        background-position: -100px 0px;
+        background-size: 2750px;
+      }
+    }
+  
+    @keyframes slidein {
+      from {
+        background-position: top;
+        background-size: 3000px;
+      }
+  
+      to {
+        background-position: -100px 0px;
+        background-size: 2750px;
+      }
+  
+    }
+  
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(75, 75, 250, 0.3);
+      border-radius: 3px;
+    }
+  
+    .center h1 {
+      text-align: center;
+      color: white;
+      font-family: 'Source Code Pro', monospace;
+      text-transform: uppercase;
+    }
+    </style>
+</head>
+
+<body>
+  <Board></Board>
+
+  <script>
+    class Board {
+
+      constructor() {
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+          this.board = [null, null, null, null, null, null, null, null, null];
+          this.boardElement = document.createElement("div");
+          this.boardElement.id = "board";
+
+          this.currentPlayer = "X";
+          this.gameOver = false;
+
+          this.board.forEach((square, index) => {
+            const squareElement = document.createElement("button");
+            squareElement.addEventListener("click", () =>
+              this.handleSquareClick(index)
+            );
+            this.boardElement.append(squareElement);
+          });
+
+          document.body.replaceChildren(this.boardElement);
+
+        });
+      }
+
+      handleSquareClick(index) {
+        if (!this.gameOver && this.board[index] === null) {
+          if (this.currentPlayer === "O") {
+            this.board[index] = "O";
+            this.boardElement.children[index].textContent = "O";
+          } else {
+            this.board[index] = "X";
+            this.boardElement.children[index].textContent = "X";
+          }
+
+          if (this.isWon(this.board, this.currentPlayer)) {
+            this.gameWon();
+          } else if (this.isDrawn(this.board)) {
+            this.gameDrawn();
+          } else {
+            this.currentPlayer = this.currentPlayer === "X" ? "O" : "X"; // Toggle currentPlayer
+          }
+        }
+      }
+
+      isDrawn(board) {
+        return board.every(square => square !== null);
+      }
+
+      isWon(board, currentPlayer) {
+        const winComb = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [6, 4, 2],
+        ];
+
+        for (const comb of winComb) {
+          const [a, b, c] = comb;
+          if (board[a] === currentPlayer && board[b] === currentPlayer && board[c] === currentPlayer) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      gameWon() {
+        this.gameOver = true;
+        let winMsg = this.currentPlayer + " WON THE GAME!";
+
+        const overlayContainer = document.createElement('div');
+        overlayContainer.classList.add('overlay-container');
+
+        const winMessageDiv = document.createElement('div');
+        winMessageDiv.textContent = winMsg;
+        winMessageDiv.classList.add('win-message');
+
+        const restartButton = document.createElement('button');
+        restartButton.textContent = 'Restart Game';
+        restartButton.classList.add('restart-button');
+
+        restartButton.addEventListener('click', () => {
+          window.location.reload();
+          document.body.removeChild(overlayContainer);
+        });
+
+        overlayContainer.appendChild(winMessageDiv);
+        overlayContainer.appendChild(restartButton);
+
+        document.body.appendChild(overlayContainer);
+
+        console.log(winMsg);
+
+        return winMsg;
+      }
+
+      gameDrawn() {
+        this.gameOver = true;
+        let drawMsg = "The game is drawn!";
+
+        const overlayContainer = document.createElement('div');
+        overlayContainer.classList.add('overlay-container');
+
+        const drawMessageDiv = document.createElement('div');
+        drawMessageDiv.textContent = drawMsg;
+        drawMessageDiv.classList.add('draw-message');
+
+        const restartButton = document.createElement('button');
+        restartButton.textContent = 'Restart Game';
+        restartButton.classList.add('restart-button');
+
+        restartButton.addEventListener('click', () => {
+          window.location.reload();
+          document.body.removeChild(overlayContainer);
+        });
+
+        overlayContainer.appendChild(drawMessageDiv);
+        overlayContainer.appendChild(restartButton);
+
+        document.body.appendChild(overlayContainer);
+
+        console.log(drawMsg);
+
+        return drawMsg;
+      }
+    }
+
+    const gameBoard = new Board();
+  </script>
+
+    
+  
+</body>
+
+</html>
