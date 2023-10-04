@@ -9,10 +9,10 @@ This repository contains two versions of a Tic-Tac-Toe game implemented using HT
 
 ## Game Versions
 
-### Object-Oriented version
+### Object-Oriented Programming Version
 ![wonsnap](https://github.com/kkristiansd/TicTacTwo/assets/104202701/83e15432-dfe2-4ada-aa79-2215f8f2edcc)
 
-### Version 2
+### Functional Programming Version
 ![image](https://github.com/kkristiansd/TicTacTwo/assets/99187215/9a29d825-901b-47f2-8a72-f1f74850564b)
 
 ## How to Play
