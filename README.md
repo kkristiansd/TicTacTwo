@@ -40,10 +40,6 @@ To play the Tic-Tac-Toe game locally on your machine, follow these steps:
 
 If you want to restart the game, simply click the "Restart Game" button provided in the game interface.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Acknowledgements
 
 This project was made according to WEB2 Assignment requirements. Thanks to teacher https://github.com/KasperKnop for guiding through the project.
